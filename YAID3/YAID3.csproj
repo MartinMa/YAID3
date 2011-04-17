@@ -64,12 +64,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlassHelper.cs" />
+    <Compile Include="Id3Tag.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mp3FileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
