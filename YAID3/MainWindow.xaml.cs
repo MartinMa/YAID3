@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,8 @@ namespace YAID3
     /// </summary>
     public partial class MainWindow : Window
     {
+		private HashSet<Mp3FileInfo> mFiles = new HashSet<Mp3FileInfo>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,9 +50,33 @@ namespace YAID3
 
 		private void ctlFiles_Drop(object sender, DragEventArgs e)
 		{
+			// TODO: Make fool-proof and asynchronous!
 			string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-			MessageBox.Show(string.Format("You dropped {0} items!", paths.Length));
+			foreach (string path in paths)
+			{
+				if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
+				{
+					// TODO: Recursion...
+				}
+				else
+				{
+					if (!mFiles.Add(new Mp3FileInfo(path)))
+					{
+						MessageBox.Show(string.Format("The file \"{0}\" is already present.", path));
+					}
+				}
+			}
+
+			// TODO: Copy to list view after worker thread did it's thing.
+			foreach (Mp3FileInfo file in mFiles)
+			{
+				ListViewItem item = new ListViewItem();
+
+				item.Content = file.FileName;
+
+				ctlFiles.Items.Add(item);
+			}
 		}
     }
 }

@@ -2,28 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IdSharp.Tagging.ID3v2;
 
 namespace YAID3
 {
+	/// <summary>
+	/// Provides functionality for reading and writing ID3 tags.
+	/// </summary>
 	class Mp3FileInfo : IEquatable<Mp3FileInfo>
 	{
 		// Name of the file.
 		private string mFileName;
 
-		// Map that stores the tags.
-		private Dictionary<string, Id3Tag> mTags = new Dictionary<string, Id3Tag>(StringComparer.InvariantCultureIgnoreCase);
+		// Tag.
+		private ID3v2Tag mTag;
 
-		// Initializes a new instance.
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Mp3FileInfo"/> class.
+		/// </summary>
 		public Mp3FileInfo(string fileName)
 		{
 			// Save the name of the file.
 			mFileName = fileName;
 
-			// TODO: Parse file using favorite ID3 library...
-			throw new NotImplementedException();
+			// Parse the file using the tag library.
+			mTag = new ID3v2Tag(fileName);
 		}
 
-		// Returns the name of the file.
+		/// <summary>
+		/// Returns the name of the file.
+		/// </summary>
 		public string FileName
 		{
 			get
@@ -33,23 +41,27 @@ namespace YAID3
 			}
 		}
 
-		// Returns or sets the specified tag.
-		public Id3Tag this[string name]
+		/// <summary>
+		/// Returns or sets the artist.
+		/// </summary>
+		public string Artist
 		{
 			get
 			{
-				// Return the tag.
-				return mTags[name];
+				// Return the artist.
+				return mTag.Artist;
 			}
 
 			set
 			{
-				// Set the tag.
-				mTags[name] = value;
+				// Set the artist.
+				mTag.Artist = value;
 			}
 		}
 
-		// Determines whether this instance represents the same file as the other instance.
+		/// <summary>
+		/// Determines whether this instance represents the same file as the other instance.
+		/// </summary>
 		public bool Equals(Mp3FileInfo other)
 		{
 			// Compare the names of the files.
