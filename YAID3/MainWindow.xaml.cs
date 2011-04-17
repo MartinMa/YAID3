@@ -15,24 +15,24 @@ using System.Windows.Shapes;
 
 namespace YAID3
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
 		private HashSet<Mp3FileInfo> mFiles = new HashSet<Mp3FileInfo>();
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
 
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            // This can't be done any earlier than this:
-            GlassHelper.ExtendGlassFrame(this, new Thickness(-1));
-        }
+		protected override void OnSourceInitialized(EventArgs e)
+		{
+			base.OnSourceInitialized(e);
+			// This can't be done any earlier than this:
+			GlassHelper.ExtendGlassFrame(this, new Thickness(-1));
+		}
 
 		private void ctlFiles_DragOver(object sender, DragEventArgs e)
 		{
@@ -78,5 +78,5 @@ namespace YAID3
 				ctlFiles.Items.Add(item);
 			}
 		}
-    }
+	}
 }
