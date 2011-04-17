@@ -16,12 +16,12 @@
 			<ListView.View>
 				<GridView>
 					<GridView.Columns>
-						<GridViewColumn Width="60" Header="Track" />
-						<GridViewColumn Width="60" Header="Artist" />
+						<GridViewColumn Width="60" Header="Track" DisplayMemberBinding="{Binding TrackNumber}"/>
+                        <GridViewColumn Width="60" Header="Artist" DisplayMemberBinding="{Binding Artist}" />
 						<GridViewColumn Width="100" Header="Name" />
-						<GridViewColumn Width="60" Header="Album" />
-						<GridViewColumn Width="40" Header="Disc" />
-						<GridViewColumn Width="150" Header="File" />
+						<GridViewColumn Width="60" Header="Album" DisplayMemberBinding="{Binding Album}" />
+						<GridViewColumn Width="40" Header="Disc" DisplayMemberBinding="{Binding DiscNumber}" />
+						<GridViewColumn Width="150" Header="File" DisplayMemberBinding="{Binding FileName}" />
 					</GridView.Columns>
 				</GridView>
 			</ListView.View>

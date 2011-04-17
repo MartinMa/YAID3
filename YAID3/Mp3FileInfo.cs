@@ -60,6 +60,60 @@ namespace YAID3
 		}
 
 		/// <summary>
+		/// Returns or sets the album.
+		/// </summary>
+		public string Album
+		{
+			get
+			{
+				// Return the album.
+				return mTag.Album;
+			}
+
+			set
+			{
+				// Set the album.
+				mTag.Album = value;
+			}
+		}
+
+		/// <summary>
+		/// Returns or sets the disc number.
+		/// </summary>
+		public string DiscNumber
+		{
+			get
+			{
+				// Return the disc number.
+				return mTag.DiscNumber;
+			}
+
+			set
+			{
+				// Set the disc number.
+				mTag.DiscNumber = value;
+			}
+		}
+
+		/// <summary>
+		/// Returns or sets the track number.
+		/// </summary>
+		public string TrackNumber
+		{
+			get
+			{
+				// Return the track number.
+				return mTag.TrackNumber;
+			}
+
+			set
+			{
+				// Set the track number.
+				mTag.TrackNumber = value;
+			}
+		}
+
+		/// <summary>
 		/// Determines whether this instance represents the same file as the other instance.
 		/// </summary>
 		public bool Equals(Mp3FileInfo other)

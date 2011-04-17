@@ -68,14 +68,10 @@ namespace YAID3
 				}
 			}
 
-			// TODO: Copy to list view after worker thread did it's thing.
+			// TODO: Copy to list view after worker thread did its thing.
 			foreach (Mp3FileInfo file in mFiles)
 			{
-				ListViewItem item = new ListViewItem();
-
-				item.Content = file.FileName;
-
-				ctlFiles.Items.Add(item);
+				ctlFiles.Items.Add(file);
 			}
 		}
 	}
