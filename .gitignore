@@ -1,0 +1,5 @@
+*.suo
+*.csproj.user
+*.ReSharper.user
+YAID3/bin/
+YAID3/obj/
