@@ -1,1 +1,5 @@
-test readme
+Yet Another ID3 Tagger is a utility aimed to streamline and simplify the process of tagging multiple mp3 files at once, while giving the opportunity to convert the ID3 version of the embedded tag information to maximize compatibility across different players and other interfaces that use the tag meta data.
+
+It is based on the tagging interface of iTunes, Winamp and foobar2000 to provide an easy to use and familiar environment, while maintaining the best features of each one.
+
+Right now, it isn't funtional yet. More can be expected upon later.
