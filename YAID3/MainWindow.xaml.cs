@@ -72,7 +72,6 @@ namespace YAID3
 			foreach (Mp3FileInfo file in mFiles)
 			{
 				ctlFiles.Items.Add(file);
-				dataGrid1.Items.Add(file);
 			}
 		}
 	}
