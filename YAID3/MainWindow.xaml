@@ -12,12 +12,12 @@
 			<ColumnDefinition Width="340*" />
 			<ColumnDefinition Width="364*" />
 		</Grid.ColumnDefinitions>
-		<ListView Margin="12,12,6,6" Name="ctlFiles" AllowDrop="True" Drop="ctlFiles_Drop" DragOver="ctlFiles_DragOver">
+		<ListView Margin="12,12,6,254" Name="ctlFiles" AllowDrop="True" Drop="ctlFiles_Drop" DragOver="ctlFiles_DragOver">
 			<ListView.View>
 				<GridView>
 					<GridView.Columns>
 						<GridViewColumn Width="60" Header="Track" DisplayMemberBinding="{Binding TrackNumber}"/>
-                        <GridViewColumn Width="60" Header="Artist" DisplayMemberBinding="{Binding Artist}" />
+						<GridViewColumn Width="60" Header="Artist" DisplayMemberBinding="{Binding Artist}" />
 						<GridViewColumn Width="100" Header="Name" />
 						<GridViewColumn Width="60" Header="Album" DisplayMemberBinding="{Binding Album}" />
 						<GridViewColumn Width="40" Header="Disc" DisplayMemberBinding="{Binding DiscNumber}" />
@@ -71,5 +71,14 @@
 			<TabItem Header="Lyrics" />
 			<TabItem Header="Format" />
 		</TabControl>
+		<DataGrid AutoGenerateColumns="False" Margin="12,214,6,6" Name="dataGrid1">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Artist" Binding="{Binding Artist}" />
+				<DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+				<DataGridTextColumn Header="Album" Binding="{Binding Album}" />
+				<DataGridTextColumn Header="Disc" Binding="{Binding DiscNumber}" />
+				<DataGridTextColumn Header="File" Binding="{Binding FileName}" />
+			</DataGrid.Columns>
+		</DataGrid>
 	</Grid>
 </Window>
