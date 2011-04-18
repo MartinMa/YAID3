@@ -42,6 +42,24 @@ namespace YAID3
 		}
 
 		/// <summary>
+		/// Returns or sets the title.
+		/// </summary>
+		public string Title
+		{
+			get
+			{
+				// Return the title.
+				return mTag.Title;
+			}
+
+			set
+			{
+				// Set the title.
+				mTag.Title = value;
+			}
+		}
+
+		/// <summary>
 		/// Returns or sets the artist.
 		/// </summary>
 		public string Artist
