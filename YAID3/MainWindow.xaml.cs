@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.IO;
@@ -11,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Shapes; // Path conflicts with System.IO.Path... why do we need Shapes anyway?
+using System.ComponentModel;
 
 namespace YAID3
 {
@@ -20,11 +22,20 @@ namespace YAID3
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private HashSet<Mp3FileInfo> mFiles = new HashSet<Mp3FileInfo>();
+		// Background worker used to load MP3 files.
+		private BackgroundWorker mBackgroundLoader = new BackgroundWorker();
+		private Mp3FileInfoLoader mFileLoader = new Mp3FileInfoLoader(25);
+
+		// Collection which stores the loaded files.
+		private ObservableCollection<Mp3FileInfo> mFiles = new ObservableCollection<Mp3FileInfo>();
 
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			mBackgroundLoader.DoWork += new DoWorkEventHandler(mBackgroundLoader_DoWork);
+			mBackgroundLoader.ProgressChanged += new ProgressChangedEventHandler(mBackgroundLoader_ProgressChanged);
+			mBackgroundLoader.RunWorkerCompleted += new RunWorkerCompletedEventHandler(mBackgroundLoader_RunWorkerCompleted);
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
@@ -50,29 +61,51 @@ namespace YAID3
 
 		private void ctlFiles_Drop(object sender, DragEventArgs e)
 		{
-			// TODO: Make fool-proof and asynchronous!
-			string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+			mBackgroundLoader.RunWorkerAsync(e.Data.GetData(DataFormats.FileDrop));
+		}
 
-			foreach (string path in paths)
+		private void mBackgroundLoader_DoWork(object sender, DoWorkEventArgs e)
+		{
+			// TODO: Forget the background worker! Move proper threading code to Mp3FileInfoLoader class.
+			try
 			{
-				if ((File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory)
-				{
-					// TODO: Recursion...
-				}
-				else
-				{
-					if (!mFiles.Add(new Mp3FileInfo(path)))
-					{
-						MessageBox.Show(string.Format("The file \"{0}\" is already present.", path));
-					}
-				}
+				//mFileLoader.ProgressReport += new Mp3FileInfoLoader.ProgressReportEventHandler(
+				//	delegate(object sender2, Mp3FileInfoLoader.ProgressReportEventArgs e2) { mBackgroundLoader.ReportProgress(0, e2); });
+
+				mFileLoader.Run((IEnumerable<string>)e.Argument);
+
+				e.Result = true;
+			}
+			catch
+			{
+				e.Result = false;
+			}
+		}
+
+		private void mBackgroundLoader_ProgressChanged(object sender, ProgressChangedEventArgs e)
+		{
+			// TODO: Show progress here...
+		}
+
+		private void mBackgroundLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			if (!(bool)e.Result)
+			{
+				MessageBox.Show("Error!!!!!!!!!!!!!11111");
+				return;
 			}
 
-			// TODO: Copy to list view after worker thread did its thing.
-			foreach (Mp3FileInfo file in mFiles)
+			// Copy the results to the observable collection.
+			foreach (Mp3FileInfo info in mFileLoader.Results)
 			{
-				ctlFiles.Items.Add(file);
+				if (!mFiles.Contains(info))
+				{
+					mFiles.Add(info);
+				}
 			}
+			
+			// Give some feedback.
+			MessageBox.Show(string.Format("Done! {0} files imported!", mFileLoader.Count));
 		}
 	}
 }

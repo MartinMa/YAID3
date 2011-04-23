@@ -26,7 +26,7 @@ namespace YAID3
 			mFileName = fileName;
 
 			// Parse the file using the tag library.
-			mTag = new ID3v2Tag(fileName);
+			mTag = new ID3v2Tag(fileName); // TODO: Doesn't throw an exception for corrupt or non-MP3 files!!!
 		}
 
 		/// <summary>
