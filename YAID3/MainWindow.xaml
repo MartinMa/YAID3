@@ -47,7 +47,7 @@
 				<Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
 				<Setter Property="BorderThickness" Value="1"/>
 				<Setter Property="Foreground" Value="#FF042271"/>
-				<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+				<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Visible"/>
 				<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
 				<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
 				<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
@@ -73,6 +73,18 @@
 					</Setter.Value>
 				</Setter>
 			</Style>
+			<Storyboard x:Key="GitHubTextFade" Duration="0:0:0.2">
+				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="lblGitHub">
+					<EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+					<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="120"/>
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+			<Storyboard x:Key="GitHubTextFadeReverse" Duration="0:0:0.2">
+				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="lblGitHub">
+					<EasingDoubleKeyFrame KeyTime="0:0:0" Value="120"/>
+					<SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
 		</ResourceDictionary>
 	</Window.Resources>
 	<!-- <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"> -->
@@ -144,5 +156,11 @@
 			<TabItem Header="Lyrics" />
 			<TabItem Header="Format" />
 		</TabControl>
+		<Image x:Name="imgGitHub" Grid.Column="1" HorizontalAlignment="Right" Height="16" Grid.Row="1" VerticalAlignment="Bottom" Width="16" Source="favicon.ico" MouseEnter="imgGitHub_MouseEnter" MouseLeave="imgGitHub_MouseLeave" Margin="0,0,5,5" Cursor="Hand" MouseUp="imgGitHub_MouseUp" />
+		<TextBlock x:Name="lblGitHub" Grid.Column="1" Margin="0,0,21,5" Grid.Row="1" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="0" TextOptions.TextHintingMode="Animated" Cursor="Hand" MouseUp="lblGitHub_MouseUp" MouseLeave="lblGitHub_MouseLeave"><Run Language="de-de" Text="Contribute on GitHub"/>
+			<TextBlock.Effect>
+				<DropShadowEffect BlurRadius="5" Color="White" ShadowDepth="0" />
+			</TextBlock.Effect>
+		</TextBlock>
 	</Grid>
 </Window>

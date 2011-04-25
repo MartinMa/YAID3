@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace YAID3
 {
@@ -21,6 +22,7 @@ namespace YAID3
 	public partial class MainWindow : Window
 	{
 		private HashSet<Mp3FileInfo> mFiles = new HashSet<Mp3FileInfo>();
+		private String projectURL = "https://github.com/MartinMa/YAID3";
 
 		public MainWindow()
 		{
@@ -74,5 +76,77 @@ namespace YAID3
 				ctlFiles.Items.Add(file);
 			}
 		}
+
+		private void imgGitHub_MouseEnter(object sender, MouseEventArgs e)
+		{
+			var gitHubTextFade = Resources["GitHubTextFade"] as Storyboard;
+			var gitHubTextFadeReverse = Resources["GitHubTextFadeReverse"] as Storyboard;
+			var duration = gitHubTextFade.Duration;
+			if (gitHubTextFade != null && gitHubTextFadeReverse != null && duration.HasTimeSpan)
+			{
+				gitHubTextFade.Begin();
+				bool testghjg = gitHubTextFadeReverse.HasAnimatedProperties;
+				try
+				{
+					gitHubTextFade.Seek(duration.TimeSpan - gitHubTextFadeReverse.GetCurrentTime());
+				}
+				catch
+				{
+					// do nothing, Storyboard hasn't started yet
+				}
+			}
+		}
+
+		private void imgGitHub_MouseLeave(object sender, MouseEventArgs e)
+		{
+			var gitHubTextFade = Resources["GitHubTextFade"] as Storyboard;
+			var gitHubTextFadeReverse = Resources["GitHubTextFadeReverse"] as Storyboard;
+			var duration = gitHubTextFadeReverse.Duration;
+			if (gitHubTextFade != null && gitHubTextFadeReverse != null && duration.HasTimeSpan && !lblGitHub.IsMouseOver)
+			{
+				gitHubTextFadeReverse.Begin();
+				try
+				{
+					gitHubTextFadeReverse.Seek(duration.TimeSpan - gitHubTextFade.GetCurrentTime());
+				}
+				catch
+				{
+					// do nothing, Storyboard hasn't started yet
+				}
+			}
+		}
+
+		private void lblGitHub_MouseLeave(object sender, MouseEventArgs e)
+		{
+			if (!imgGitHub.IsMouseOver)
+			{
+				var gitHubTextFade = Resources["GitHubTextFade"] as Storyboard;
+				var gitHubTextFadeReverse = Resources["GitHubTextFadeReverse"] as Storyboard;
+				var duration = gitHubTextFadeReverse.Duration;
+				if (gitHubTextFade != null && gitHubTextFadeReverse != null && duration.HasTimeSpan && !lblGitHub.IsMouseOver)
+				{
+					gitHubTextFadeReverse.Begin();
+					try
+					{
+						gitHubTextFadeReverse.Seek(duration.TimeSpan - gitHubTextFade.GetCurrentTime());
+					}
+					catch
+					{
+						// do nothing, Storyboard hasn't started yet
+					}
+				}
+			}
+		}
+
+		private void imgGitHub_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			System.Diagnostics.Process.Start(projectURL);
+		}
+
+		private void lblGitHub_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			System.Diagnostics.Process.Start(projectURL);
+		}
+
 	}
 }
