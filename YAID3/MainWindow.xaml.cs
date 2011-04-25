@@ -37,6 +37,8 @@ namespace YAID3
 			mBackgroundLoader.DoWork += new DoWorkEventHandler(mBackgroundLoader_DoWork);
 			mBackgroundLoader.ProgressChanged += new ProgressChangedEventHandler(mBackgroundLoader_ProgressChanged);
 			mBackgroundLoader.RunWorkerCompleted += new RunWorkerCompletedEventHandler(mBackgroundLoader_RunWorkerCompleted);
+
+			ctlFiles.ItemsSource = mFiles;
 		}
 
 		protected override void OnSourceInitialized(EventArgs e)
